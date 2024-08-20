@@ -3,7 +3,8 @@ import { getDatabase,
          ref,
          push,
          onValue,
-         remove } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
+         remove,
+         get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
 
 const firebaseConfig = {
     databaseURL: "https://leadstracker-1cb55-default-rtdb.asia-southeast1.firebasedatabase.app/"
@@ -17,6 +18,14 @@ const inputEl = document.getElementById("input-el")
 const inputBtn = document.getElementById("input-btn")
 const ulEl = document.getElementById("ul-el")
 const deleteBtn = document.getElementById("delete-btn")
+
+
+get(referenceInDB).then((snapshot) => { 
+    if (snapshot.exists()) { 
+        const leads = Object.values(snapshot.val())
+        render(leads)
+    }
+})
 
 function render(leads) {
     let listItems = ""
